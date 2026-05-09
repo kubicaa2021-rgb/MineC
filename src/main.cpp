@@ -9,7 +9,7 @@
 #include <SDL3/SDL_stdinc.h>
 #include <vector>
 
-// Change qaternion roa
+// Add z-buffer or sort based on center of cubes
 
 Camera camera = Camera();
 
