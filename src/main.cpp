@@ -51,6 +51,7 @@ int main(int argc, char *argv[]) {
   temp2.rotation.Normalize();
 
   map.addCube(temp);
+  map.addCube(temp2);
 
   // Main loop
   bool done = false;
@@ -68,6 +69,12 @@ int main(int argc, char *argv[]) {
           break;
         case SDLK_S:
           camera.position.z -= 1;
+          break;
+        case SDLK_D:
+          camera.rotation = camera.rotation * qt;
+          break;
+        case SDLK_A:
+          camera.rotation = camera.rotation * qt.Inversed();
           break;
         }
       }
