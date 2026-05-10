@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(mineCplus)
+project(mineC)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -30,4 +30,4 @@ if(NOT CMAKE_BUILD_TYPE)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
   "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
-message(STATUS "Mine Cplus Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "MineC Build Type: ${CMAKE_BUILD_TYPE}")

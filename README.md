@@ -1,4 +1,4 @@
-# Mine Cplus (game/renderer)
+# MineC (game/renderer)
 Small game with cubes.
 ## Requirement
 - SDL_3
