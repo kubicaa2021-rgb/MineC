@@ -39,14 +39,14 @@ public:
   Quaternion rotation = {1, 0, 0, 0};
 
   Cube();
-  void drawCube(SDL_Renderer *rn, Camera *camera);
+  void drawCube(SDL_Renderer *rn, const Camera &camera);
 
 private:
 };
 inline Cube::Cube() {
 
 };
-inline void Cube::drawCube(SDL_Renderer *rn, Camera *camera) {
+inline void Cube::drawCube(SDL_Renderer *rn, const Camera &camera) {
   rotation.Normalize();
   for (int i = 0; i < Cube::cubeMesh.indices.size(); i += 3) { // {{{
     vector3 v1, v2, v3;
@@ -68,30 +68,30 @@ inline void Cube::drawCube(SDL_Renderer *rn, Camera *camera) {
     vector3 normal = vector3::normalizeVector(crossProduct(v2 - v1, v3 - v1));
 
     // Calculate if triangle visible
-    vector3 view = camera->position - v1;
+    vector3 view = camera.position - v1;
     if (dotProduct(normal, view) <= 0) {
       continue; // If facing away from camera dont draw it
     }
 
     // Camera space
-    v1 -= camera->position;
-    v2 -= camera->position;
-    v3 -= camera->position;
+    v1 -= camera.position;
+    v2 -= camera.position;
+    v3 -= camera.position;
 
     // Rotate around camera
-    v1 = rotatePointQuater(v1, camera->rotation.Inversed());
-    v2 = rotatePointQuater(v2, camera->rotation.Inversed());
-    v3 = rotatePointQuater(v3, camera->rotation.Inversed());
+    v1 = rotatePointQuater(v1, camera.rotation.Inversed());
+    v2 = rotatePointQuater(v2, camera.rotation.Inversed());
+    v3 = rotatePointQuater(v3, camera.rotation.Inversed());
 
-    if (v1.z <= camera->nearPlane || v2.z <= camera->nearPlane ||
-        v3.z <= camera->nearPlane) {
+    if (v1.z <= camera.nearPlane || v2.z <= camera.nearPlane ||
+        v3.z <= camera.nearPlane) {
       continue;
     }
 
     // projection
-    vector2 s1 = convert3Dto2DPoint(v1, camera->D);
-    vector2 s2 = convert3Dto2DPoint(v2, camera->D);
-    vector2 s3 = convert3Dto2DPoint(v3, camera->D);
+    vector2 s1 = convert3Dto2DPoint(v1, camera.D);
+    vector2 s2 = convert3Dto2DPoint(v2, camera.D);
+    vector2 s3 = convert3Dto2DPoint(v3, camera.D);
 
     // TODO: draw triangle
     s1 = DrawLib::toScreen(s1);

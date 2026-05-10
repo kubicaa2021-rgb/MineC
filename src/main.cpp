@@ -2,6 +2,7 @@
 #include "cube.h"
 #include "input.h"
 #include "map.h"
+#include "player.h"
 #include "quaternion.h"
 #include "settings.h"
 #include "vector3.h"
@@ -12,7 +13,7 @@
 #include <SDL3/SDL_stdinc.h>
 #include <map>
 
-Camera camera = Camera();
+Player player = Player();
 Map map = Map();
 
 int main(int argc, char *argv[]) {
@@ -40,7 +41,7 @@ int main(int argc, char *argv[]) {
   SDL_SetRenderVSync(renderer, SDL_RENDERER_VSYNC_ADAPTIVE);
   // }}}
 
-  map.cam = &camera;
+  map.player = &player;
   map.rn = renderer;
 
   Quaternion qt = Quaternion::FromAxisAngle({0, 1, 0}, 0.1f);
@@ -48,8 +49,8 @@ int main(int argc, char *argv[]) {
   Cube temp = Cube();
   Cube temp2 = Cube();
 
-  temp.position = {0, -1, 5};
-  temp2.position = {-1, -1, 8};
+  temp.position = {0, 0, 5};
+  temp2.position = {-1, 0, 8};
   temp2.rotation = {0, 1, 0, 2};
   temp2.rotation.Normalize();
 
@@ -72,7 +73,7 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    Input::parseInput(keyState, camera);
+    Input::parseInput(keyState, player);
 
     SDL_SetRenderDrawColor(renderer, 10, 10, 30, 255);
     SDL_RenderClear(renderer);

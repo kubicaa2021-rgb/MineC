@@ -12,14 +12,8 @@ public:
   float sensitivity = 0.1f;
   float speed = 0.5f;
 
-  void move(const vector3 &v);
   void rotateY(const int &a);
 };
-
-inline void Camera::move(const vector3 &v) {
-
-  position += rotatePointQuater(v, rotation);
-}
 
 inline void Camera::rotateY(const int &a) {
   rotation = rotation * Quaternion::FromAxisAngle({0, 1, 0}, a * sensitivity);

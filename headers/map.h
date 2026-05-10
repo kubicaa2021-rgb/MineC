@@ -1,6 +1,7 @@
 #pragma once
 #include "camera.h"
 #include "cube.h"
+#include "player.h"
 #include "vector3.h"
 #include <SDL3/SDL_render.h>
 #include <vector>
@@ -9,10 +10,10 @@ class Map {
 public:
   std::vector<Cube> mapCubes;
   SDL_Renderer *rn;
-  Camera *cam;
+  Player *player;
 
   Map();
-  Map(SDL_Renderer *rend, Camera *camera);
+  Map(SDL_Renderer *rend, Player *pl);
 
   void drawMap();
   void addCube(Cube &cb);
@@ -24,13 +25,13 @@ inline void Map::drawMap() {
 
   std::sort(mapCubes.begin(), mapCubes.end(),
             [this](const Cube &a, const Cube &b) {
-              return vector3::getDistance(a.position, cam->position) >
-                     vector3::getDistance(b.position, cam->position);
+              return vector3::getDistance(a.position, player->camera.position) >
+                     vector3::getDistance(b.position, player->camera.position);
             });
 
   for (Cube &c : mapCubes) {
-    c.drawCube(rn, cam);
+    c.drawCube(rn, player->camera);
   };
 };
-inline Map::Map(SDL_Renderer *rend, Camera *camera) : rn(rend), cam(camera) {}
+inline Map::Map(SDL_Renderer *rend, Player *pl) : rn(rend), player(pl) {}
 inline void Map::addCube(Cube &cb) { mapCubes.emplace_back(cb); }
