@@ -8,6 +8,7 @@
 #include "vector3.h"
 #include <SDL3/SDL_render.h>
 #include <algorithm>
+
 class Cube {
 public:
   inline static Mesh cubeMesh = {{
@@ -47,6 +48,7 @@ inline Cube::Cube() {
 };
 inline void Cube::drawCube(SDL_Renderer *rn, Camera *camera) {
   rotation.Normalize();
+  Quaternion qt = Quaternion::FromAxisAngle({0, 1, 0}, 0.01f);
   for (int i = 0; i < Cube::cubeMesh.indices.size(); i += 3) { // {{{
     vector3 v1, v2, v3;
     v1 = Cube::cubeMesh.vertices[Cube::cubeMesh.indices[i]];
@@ -63,18 +65,28 @@ inline void Cube::drawCube(SDL_Renderer *rn, Camera *camera) {
     v2 += position;
     v3 += position;
 
-    // Camera space
-    v1 -= camera->position;
-    v2 -= camera->position;
-    v3 -= camera->position;
-
     // Backface culling
-    vector3 normal = crossProduct(v2 - v1, v3 - v1);
+    vector3 normal = vector3::normalizeVector(crossProduct(v2 - v1, v3 - v1));
 
     // Calculate if triangle visible
     vector3 view = vector3{0, 0, 0} - v1;
     if (dotProduct(normal, view) <= 0) {
       continue; // If facing away from camera dont draw it
+    }
+
+    // Camera space
+    v1 -= camera->position;
+    v2 -= camera->position;
+    v3 -= camera->position;
+
+    // Rotate around camera
+    v1 = rotatePointQuater(v1, camera->rotation.Inversed());
+    v2 = rotatePointQuater(v2, camera->rotation.Inversed());
+    v3 = rotatePointQuater(v3, camera->rotation.Inversed());
+
+    if (v1.z <= camera->nearPlane || v2.z <= camera->nearPlane ||
+        v3.z <= camera->nearPlane) {
+      continue;
     }
 
     // projection

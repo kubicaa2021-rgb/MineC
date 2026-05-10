@@ -13,6 +13,7 @@ public:
   static Quaternion FromAxisAngle(const vector3 &v, const float &angle);
 
   inline void Normalize();
+  Quaternion Inversed();
 };
 
 #include <vector3.h>
@@ -49,3 +50,4 @@ inline void Quaternion::Normalize() {
   y = y * invLen;
   z = z * invLen;
 }; // }}}
+inline Quaternion Quaternion::Inversed() { return {w, -x, -y, -z}; }

@@ -8,9 +8,6 @@
 #include <SDL3/SDL_events.h>
 #include <SDL3/SDL_keycode.h>
 #include <SDL3/SDL_stdinc.h>
-#include <vector>
-
-// Add z-buffer or sort based on center of cubes
 
 Camera camera = Camera();
 Map map = Map();
@@ -42,6 +39,8 @@ int main(int argc, char *argv[]) {
 
   map.cam = &camera;
   map.rn = renderer;
+
+  Quaternion qt = Quaternion::FromAxisAngle({0, 1, 0}, 0.01f);
 
   Cube temp = Cube();
   Cube temp2 = Cube();
@@ -76,6 +75,7 @@ int main(int argc, char *argv[]) {
     }
     SDL_SetRenderDrawColor(renderer, 10, 10, 30, 255);
     SDL_RenderClear(renderer);
+    camera.rotation = camera.rotation * qt;
 
     map.drawMap();
 
