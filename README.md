@@ -6,5 +6,5 @@ Small game with cubes.
 ----------
 ## TODO
 1. Add matrix MVP 4x4 math
-2. Fix camera input
+2. Add mouse camera movement and camera side to side
 

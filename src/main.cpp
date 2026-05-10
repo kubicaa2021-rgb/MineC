@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "cube.h"
+#include "input.h"
 #include "map.h"
 #include "quaternion.h"
 #include "settings.h"
@@ -7,7 +8,9 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_events.h>
 #include <SDL3/SDL_keycode.h>
+#include <SDL3/SDL_scancode.h>
 #include <SDL3/SDL_stdinc.h>
+#include <map>
 
 Camera camera = Camera();
 Map map = Map();
@@ -56,29 +59,21 @@ int main(int argc, char *argv[]) {
   // Main loop
   bool done = false;
   SDL_Event event;
+  std::map<SDL_Scancode, bool> keyState;
 
   while (!done) {
     while (SDL_PollEvent(&event)) {
       if (event.type == SDL_EVENT_QUIT) {
         done = true;
-      }
-      if (event.type == SDL_EVENT_KEY_DOWN) {
-        switch (event.key.key) {
-        case SDLK_W:
-          camera.move({0, 0, 1});
-          break;
-        case SDLK_S:
-          camera.move({0, 0, -1});
-          break;
-        case SDLK_D:
-          camera.rotation = camera.rotation * qt;
-          break;
-        case SDLK_A:
-          camera.rotation = camera.rotation * qt.Inversed();
-          break;
-        }
+      } else if (event.type == SDL_EVENT_KEY_DOWN) {
+        keyState[event.key.scancode] = true;
+      } else if (event.type == SDL_EVENT_KEY_UP) {
+        keyState[event.key.scancode] = false;
       }
     }
+
+    Input::parseInput(keyState, camera);
+
     SDL_SetRenderDrawColor(renderer, 10, 10, 30, 255);
     SDL_RenderClear(renderer);
     // map.mapCubes[0].rotation = map.mapCubes[0].rotation * qt;
