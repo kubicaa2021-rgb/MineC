@@ -2,6 +2,7 @@
 #include "camera.h"
 #include "cube.h"
 #include <SDL3/SDL_render.h>
+#include <algorithm>
 #include <vector>
 
 class Map {
@@ -20,6 +21,11 @@ public:
 inline Map::Map() {}
 
 inline void Map::drawMap() {
+
+  std::sort(mapCubes.begin(), mapCubes.end(), [](const Cube &a, const Cube &b) {
+    return a.position.z > b.position.z;
+  });
+
   for (Cube &c : mapCubes) {
     c.drawCube(rn, cam);
   };
