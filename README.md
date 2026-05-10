@@ -6,5 +6,5 @@ Small game with cubes.
 ----------
 ## TODO
 1. Add matrix MVP 4x4 math
-2. Make it playable(camera movement) Fix moving only on Z axis(with rotation)
+2. Fix camera input
 

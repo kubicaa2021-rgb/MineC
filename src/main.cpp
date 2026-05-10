@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
   map.cam = &camera;
   map.rn = renderer;
 
-  Quaternion qt = Quaternion::FromAxisAngle({0, 1, 0}, 0.01f);
+  Quaternion qt = Quaternion::FromAxisAngle({0, 1, 0}, 0.1f);
 
   Cube temp = Cube();
   Cube temp2 = Cube();
@@ -65,10 +65,10 @@ int main(int argc, char *argv[]) {
       if (event.type == SDL_EVENT_KEY_DOWN) {
         switch (event.key.key) {
         case SDLK_W:
-          camera.position.z += 1;
+          camera.move({0, 0, 1});
           break;
         case SDLK_S:
-          camera.position.z -= 1;
+          camera.move({0, 0, -1});
           break;
         case SDLK_D:
           camera.rotation = camera.rotation * qt;
@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
     }
     SDL_SetRenderDrawColor(renderer, 10, 10, 30, 255);
     SDL_RenderClear(renderer);
-    map.mapCubes[0].rotation = map.mapCubes[0].rotation * qt;
+    // map.mapCubes[0].rotation = map.mapCubes[0].rotation * qt;
 
     map.drawMap();
 

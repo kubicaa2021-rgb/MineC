@@ -1,6 +1,7 @@
 #pragma once
 #include "vector2.h"
 #include <cmath>
+#include <cstdlib>
 
 class vector3 {
 
@@ -31,6 +32,7 @@ public:
   }
 
   static vector3 normalizeVector(const vector3 &A);
+  static float getDistance(const vector3 &A, const vector3 &B);
 
   inline vector3 crossProduct(const vector3 &A, const vector3 &B);
 };
@@ -83,4 +85,9 @@ inline vector3 rotatePointQuater(const vector3 &v, const Quaternion &q) {
   Quaternion v_rotated = (q * v_quat) * q_rev;
 
   return {v_rotated.x, v_rotated.y, v_rotated.z};
+} // }}}
+
+inline float vector3::getDistance(const vector3 &A, const vector3 &B) {
+  vector3 diff = A - B; // {{{
+  return std::abs(sqrtf(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z));
 } // }}}

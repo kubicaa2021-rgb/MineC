@@ -68,7 +68,7 @@ inline void Cube::drawCube(SDL_Renderer *rn, Camera *camera) {
     vector3 normal = vector3::normalizeVector(crossProduct(v2 - v1, v3 - v1));
 
     // Calculate if triangle visible
-    vector3 view = vector3{0, 0, 0} - v1;
+    vector3 view = camera->position - v1;
     if (dotProduct(normal, view) <= 0) {
       continue; // If facing away from camera dont draw it
     }
