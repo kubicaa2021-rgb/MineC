@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "cube.h"
+#include "map.h"
 #include "quaternion.h"
 #include "settings.h"
 #include "vector3.h"
@@ -10,11 +11,9 @@
 #include <vector>
 
 // Add z-buffer or sort based on center of cubes
-// Test Help
 
 Camera camera = Camera();
-
-std::vector<Cube> mapCubes;
+Map map = Map();
 
 int main(int argc, char *argv[]) {
   // {{{
@@ -41,6 +40,9 @@ int main(int argc, char *argv[]) {
   SDL_SetRenderVSync(renderer, SDL_RENDERER_VSYNC_ADAPTIVE);
   // }}}
 
+  map.cam = &camera;
+  map.rn = renderer;
+
   Cube temp = Cube();
   Cube temp2 = Cube();
 
@@ -48,6 +50,9 @@ int main(int argc, char *argv[]) {
   temp2.position = {-1, -1, 8};
   temp2.rotation = {0, 1, 0, 2};
   temp2.rotation.Normalize();
+
+  map.addCube(temp);
+  map.addCube(temp2);
 
   // Main loop
   bool done = false;
@@ -72,14 +77,7 @@ int main(int argc, char *argv[]) {
     SDL_SetRenderDrawColor(renderer, 10, 10, 30, 255);
     SDL_RenderClear(renderer);
 
-    float angle = 0.01f;
-
-    Quaternion rotY = Quaternion::FromAxisAngle({0, 1, 1}, angle);
-    temp.rotation = temp.rotation * rotY;
-    temp2.rotation = temp2.rotation * rotY;
-
-    temp.drawCube(renderer, &camera);
-    temp2.drawCube(renderer, &camera);
+    map.drawMap();
 
     // Swap buffers and present
     SDL_RenderPresent(renderer);
