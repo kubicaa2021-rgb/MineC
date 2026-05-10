@@ -45,13 +45,12 @@ int main(int argc, char *argv[]) {
   Cube temp = Cube();
   Cube temp2 = Cube();
 
-  temp.position = {-1, -1, 5};
+  temp.position = {0, -1, 5};
   temp2.position = {-1, -1, 8};
   temp2.rotation = {0, 1, 0, 2};
   temp2.rotation.Normalize();
 
   map.addCube(temp);
-  map.addCube(temp2);
 
   // Main loop
   bool done = false;
@@ -75,7 +74,7 @@ int main(int argc, char *argv[]) {
     }
     SDL_SetRenderDrawColor(renderer, 10, 10, 30, 255);
     SDL_RenderClear(renderer);
-    camera.rotation = camera.rotation * qt;
+    map.mapCubes[0].rotation = map.mapCubes[0].rotation * qt;
 
     map.drawMap();
 

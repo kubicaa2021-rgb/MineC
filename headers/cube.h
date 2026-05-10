@@ -48,7 +48,6 @@ inline Cube::Cube() {
 };
 inline void Cube::drawCube(SDL_Renderer *rn, Camera *camera) {
   rotation.Normalize();
-  Quaternion qt = Quaternion::FromAxisAngle({0, 1, 0}, 0.01f);
   for (int i = 0; i < Cube::cubeMesh.indices.size(); i += 3) { // {{{
     vector3 v1, v2, v3;
     v1 = Cube::cubeMesh.vertices[Cube::cubeMesh.indices[i]];
