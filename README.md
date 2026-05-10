@@ -5,6 +5,5 @@ Small game with cubes.
 - CMake
 ----------
 ## TODO
-1. Add matrix MVP 4x4 math
-2. Add mouse camera movement and camera side to side
+1. Add mouse camera movement and camera side to side
 
