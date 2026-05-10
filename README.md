@@ -5,6 +5,5 @@ Small game with cubes.
 - CMake
 ----------
 ## TODO
-1. Add sorting based on z 🔥
 2. Add matrix MVP 4x4
 
