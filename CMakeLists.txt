@@ -30,5 +30,4 @@ if(NOT CMAKE_BUILD_TYPE)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
   "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
-message(STATUS "snakeGame Build Type: ${CMAKE_BUILD_TYPE}")
-
+message(STATUS "Mine Cplus Build Type: ${CMAKE_BUILD_TYPE}")
