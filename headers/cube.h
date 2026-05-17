@@ -69,9 +69,6 @@ inline void Cube::drawCube(SDL_Renderer *rn, const Camera &camera) {
 
     // Calculate if triangle visible
     vector3 view = camera.position - v1;
-    if (dotProduct(normal, view) <= 0) {
-      continue; // If facing away from camera dont draw it
-    }
 
     // Camera space
     v1 -= camera.position;
@@ -86,6 +83,10 @@ inline void Cube::drawCube(SDL_Renderer *rn, const Camera &camera) {
     if (v1.z <= camera.nearPlane || v2.z <= camera.nearPlane ||
         v3.z <= camera.nearPlane) {
       continue;
+    }
+
+    if (dotProduct(normal, view) <= 0) {
+      continue; // If facing away from camera dont draw it
     }
 
     // projection

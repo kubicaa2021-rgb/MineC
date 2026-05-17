@@ -10,12 +10,12 @@ public:
   void move(const vector3 &v);
 
 private:
-  vector3 cameraOffset = {0, 0, 10};
+  vector3 cameraOffset = {0, 1, 0};
 };
 
-inline Player::Player() {}
+inline Player::Player() { camera.position = camera.position + cameraOffset; }
 
 inline void Player::move(const vector3 &v) {
   position += rotatePointQuater(v, camera.rotation);
-  camera.position = {position.x, position.y, position.z + 2};
+  camera.position = position + cameraOffset;
 }

@@ -17,7 +17,8 @@ public:
 };
 
 inline vector2 DrawLib::toScreen(const vector2 &p) {
-  return {(WinSettings::WIDTH / 2.0f * p.x) + WinSettings::WIDTH / 2.0f, // {{{
+  return {(WinSettings::WIDTH / 2.0f * p.x * WinSettings::HEIGHT_to_WIDTH) +
+              WinSettings::WIDTH / 2.0f, // {{{
           WinSettings::HEIGHT / 2.0f - (WinSettings::HEIGHT / 2.0f * p.y)};
 } // }}}
 

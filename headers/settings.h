@@ -3,8 +3,9 @@
 #include "vector3.h"
 class WinSettings {
 public:
-  static constexpr int HEIGHT = 900;
-  static constexpr int WIDTH = 900;
+  static constexpr int HEIGHT = 600;
+  static constexpr int WIDTH = 1200;
+  static constexpr float HEIGHT_to_WIDTH = HEIGHT / float(WIDTH);
 };
 class Settings {
 public:

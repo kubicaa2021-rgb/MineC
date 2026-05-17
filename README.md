@@ -5,6 +5,5 @@ Small game with cubes.
 - CMake
 ----------
 ## TODO
-1. Add player class // FIX camera bug offset not working
-2. Add mouse camera movement and camera side to side
+1. Add mouse camera movement and camera side to side
 
