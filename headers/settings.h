@@ -11,6 +11,8 @@ class Settings {
 public:
   static constexpr vector3 lightDirection{0.666f, -0.666f, 0.333f};
 
+  static constexpr float MouseSens = 0.01f;
+
   static constexpr float lightStrength = 1.0f;
 
   static constexpr const char *filePath = "models/cube.obj";

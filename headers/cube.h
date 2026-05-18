@@ -37,6 +37,7 @@ public:
                                   4, 5, 1, 4, 1, 0}}; // }}}
   vector3 position;
   Quaternion rotation = {1, 0, 0, 0};
+  vector3 colors = {1, 1, 1};
 
   Cube();
   void drawCube(SDL_Renderer *rn, const Camera &camera);
@@ -102,9 +103,9 @@ inline void Cube::drawCube(SDL_Renderer *rn, const Camera &camera) {
     float lightI =
         std::max(0.0f, -dotProduct(Settings::lightDirection, normal));
 
-    float colorR = 1 * Settings::lightStrength * lightI;
-    float colorG = 1 * Settings::lightStrength * lightI;
-    float colorB = 1 * Settings::lightStrength * lightI;
+    float colorR = colors.x * Settings::lightStrength * lightI;
+    float colorG = colors.y * Settings::lightStrength * lightI;
+    float colorB = colors.z * Settings::lightStrength * lightI;
 
     SDL_Vertex triangle[3] = {{s1.x, s1.y, colorR, colorG, colorB, 1},
                               {s2.x, s2.y, colorR, colorG, colorB, 1},

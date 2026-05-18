@@ -13,8 +13,13 @@ public:
   float speed = 0.5f;
 
   void rotateY(const int &a);
+  void rotateX(const int &a);
 };
 
 inline void Camera::rotateY(const int &a) {
   rotation = rotation * Quaternion::FromAxisAngle({0, 1, 0}, a * sensitivity);
+}
+
+inline void Camera::rotateX(const int &a) {
+  rotation = rotation * Quaternion::FromAxisAngle({1, 0, 0}, a * sensitivity);
 }

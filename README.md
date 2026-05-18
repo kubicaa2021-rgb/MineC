@@ -5,5 +5,5 @@ Small game with cubes.
 - CMake
 ----------
 ## TODO
-1. Add mouse camera movement and camera side to side
+1. Fix camera mouse rotation
 

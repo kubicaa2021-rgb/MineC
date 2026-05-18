@@ -9,8 +9,10 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_events.h>
 #include <SDL3/SDL_keycode.h>
+#include <SDL3/SDL_mouse.h>
 #include <SDL3/SDL_scancode.h>
 #include <SDL3/SDL_stdinc.h>
+#include <iterator>
 #include <map>
 
 Player player = Player();
@@ -39,10 +41,13 @@ int main(int argc, char *argv[]) {
     SDL_Log("Could not enable VSync! SDL error: %s\n", SDL_GetError());
   }
   SDL_SetRenderVSync(renderer, SDL_RENDERER_VSYNC_ADAPTIVE);
+
+  SDL_SetWindowRelativeMouseMode(window, true);
   // }}}
 
   map.player = &player;
   map.rn = renderer;
+  Input mouse;
 
   Quaternion qt = Quaternion::FromAxisAngle({0, 1, 0}, 0.1f);
 
@@ -70,6 +75,9 @@ int main(int argc, char *argv[]) {
         keyState[event.key.scancode] = true;
       } else if (event.type == SDL_EVENT_KEY_UP) {
         keyState[event.key.scancode] = false;
+      }
+      if (event.type == SDL_EVENT_MOUSE_MOTION) {
+        mouse.parseMouseInput({event.motion.x, event.motion.y}, player);
       }
     }
 
